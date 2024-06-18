@@ -123,14 +123,7 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
             errorMessage.innerText = 'Por favor, insira Razão Social, Telefone e E-mail';
             setTimeout(errorMessage.innerText = '', 3000);
-        }     addBookmark(name, description, url, phone, email, date);
-        bookmarkNameInput.value = '';
-        bookmarkDescriptionInput.value = '';
-        bookmarkUrlInput.value = '';
-        bookmarkPhoneInput.value = '';
-        bookmarkEmailInput.value = '';
-        errorMessage.innerText = '';
+        }
     });
-
     loadBookmarks();
 });
