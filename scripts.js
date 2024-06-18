@@ -8,11 +8,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const bookmarksList = document.getElementById('bookmarks');
     const errorMessage = document.getElementById('error-message');
 
-    function isValidUrl(url) {
-        const pattern = new RegExp('^(https?:\\/\\/)', 'i');
-        return pattern.test(url);
-    }
-
     function saveBookmarks() {
         const bookmarks = [];
         document.querySelectorAll('#bookmarks li').forEach(bookmark => {
@@ -117,19 +112,13 @@ document.addEventListener('DOMContentLoaded', function () {
         const phone = bookmarkPhoneInput.value.trim();
         const email = bookmarkEmailInput.value.trim();
         const date = new Date().toLocaleString();
-        if (isValidUrl(url)) {
-            addBookmark(name, description, url, phone, email, date);
-            bookmarkNameInput.value = '';
-            bookmarkDescriptionInput.value = '';
-            bookmarkUrlInput.value = '';
-            bookmarkPhoneInput.value = '';
-            bookmarkEmailInput.value = '';
-            errorMessage.innerText = '';
-        } else {
-            errorMessage.innerText = 'Por favor, insira uma URL válida que comece com http:// ou https://.';
-            setTimeout(3000);
-            errorMessage.innerText = '';
-        }
+        addBookmark(name, description, url, phone, email, date);
+        bookmarkNameInput.value = '';
+        bookmarkDescriptionInput.value = '';
+        bookmarkUrlInput.value = '';
+        bookmarkPhoneInput.value = '';
+        bookmarkEmailInput.value = '';
+        errorMessage.innerText = '';
     });
 
     loadBookmarks();
