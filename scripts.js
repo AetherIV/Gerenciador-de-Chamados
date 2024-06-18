@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const bookmarkNameInput = document.getElementById('companyName');
     const bookmarkDescriptionInput = document.getElementById('description');
     const bookmarkUrlInput = document.getElementById('bookmarkURL');
+    const bookmarkPhoneInput = document.getElementById('phone');
+    const bookmarkEmailInput = document.getElementById('email');
     const addBookmarkButton = document.getElementById('add-bookmark');
     const bookmarksList = document.getElementById('bookmarks');
     const errorMessage = document.getElementById('error-message');
@@ -18,6 +20,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 name: bookmark.querySelector('a').innerText,
                 description: bookmark.querySelector('p').innerText,
                 url: bookmark.querySelector('a').href,
+                phone: bookmark.querySelector('.phone').innerText,
+                email: bookmark.querySelector('.email').innerText,
+                date: bookmark.querySelector('.date').innerText,
                 rating: bookmark.querySelector('.rating-container select') ? bookmark.querySelector('.rating-container select').value : ''
             });
         });
@@ -27,14 +32,17 @@ document.addEventListener('DOMContentLoaded', function () {
     function loadBookmarks() {
         const bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
         bookmarks.forEach(bookmark => {
-            addBookmark(bookmark.name, bookmark.description, bookmark.url, bookmark.rating);
+            addBookmark(bookmark.name, bookmark.description, bookmark.url, bookmark.phone, bookmark.email, bookmark.date, bookmark.rating);
         });
     }
 
-    function addBookmark(name, description, url, rating = '') {
+    function addBookmark(name, description, url, phone, email, date, rating = '') {
         const li = document.createElement('li');
         const a = document.createElement('a');
         const p = document.createElement('p');
+        const phoneP = document.createElement('p');
+        const emailP = document.createElement('p');
+        const dateP = document.createElement('p');
         const ratingContainer = document.createElement('div');
         const checkbox = document.createElement('input');
         const label = document.createElement('label');
@@ -45,6 +53,12 @@ document.addEventListener('DOMContentLoaded', function () {
         a.innerText = name;
         a.target = '_blank';
         p.innerText = description;
+        phoneP.innerText = phone;
+        phoneP.classList.add('phone');
+        emailP.innerText = email;
+        emailP.classList.add('email');
+        dateP.innerText = date ? date : new Date().toLocaleString();
+        dateP.classList.add('date');
 
         checkbox.type = 'checkbox';
         checkbox.id = `checkbox-${name}`;
@@ -79,6 +93,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         li.appendChild(a);
         li.appendChild(p);
+        li.appendChild(phoneP);
+        li.appendChild(emailP);
+        li.appendChild(dateP);
         li.appendChild(actions);
 
         const deleteButton = document.createElement('button');
@@ -97,14 +114,21 @@ document.addEventListener('DOMContentLoaded', function () {
         const name = bookmarkNameInput.value.trim();
         const description = bookmarkDescriptionInput.value.trim();
         const url = bookmarkUrlInput.value.trim();
-        if (name && description && isValidUrl(url)) {
-            addBookmark(name, description, url);
+        const phone = bookmarkPhoneInput.value.trim();
+        const email = bookmarkEmailInput.value.trim();
+        const date = new Date().toLocaleString();
+        if (isValidUrl(url)) {
+            addBookmark(name, description, url, phone, email, date);
             bookmarkNameInput.value = '';
             bookmarkDescriptionInput.value = '';
             bookmarkUrlInput.value = '';
+            bookmarkPhoneInput.value = '';
+            bookmarkEmailInput.value = '';
             errorMessage.innerText = '';
         } else {
             errorMessage.innerText = 'Por favor, insira uma URL válida que comece com http:// ou https://.';
+            setTimeout(3000);
+            errorMessage.innerText = '';
         }
     });
 
