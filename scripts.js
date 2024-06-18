@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const phone = bookmarkPhoneInput.value.trim();
         const email = bookmarkEmailInput.value.trim();
         const date = new Date().toLocaleString();
-   if (name && phone && email) {
+        if (name && phone && email) {
             addBookmark(name, description, url, phone, email, date);
             bookmarkNameInput.value = '';
             bookmarkDescriptionInput.value = '';
@@ -121,8 +121,10 @@ document.addEventListener('DOMContentLoaded', function () {
             bookmarkEmailInput.value = '';
             errorMessage.innerText = '';
         } else {
-            errorMessage.innerText = 'Por favor, insira Razão Social, Telefone e E-mail';
-            setTimeout(errorMessage.innerText = '', 3000);
+            errorMessage.innerText = 'Por favor, insira Razão Social, Telefone e E-mail.';
+            setTimeout(() => {
+                errorMessage.innerText = '';
+            }, 3000);
         }
     });
     loadBookmarks();
