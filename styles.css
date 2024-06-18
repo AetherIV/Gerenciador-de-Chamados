@@ -10,11 +10,15 @@ body {
     background-color: #0f0e0e;
 }
 
+h1{
+    color: white;
+}
+
 .container {
     flex: 1;
     width: calc(50% - 10px);
     margin: auto;
-    background: rgb(58, 86, 88);
+    background: rgb(15, 20, 31);
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -113,6 +117,10 @@ ul li .actions .rating-container select {
     padding: 5px;
     border-radius: 4px;
     border: 1px solid #ccc;
+}
+
+#error-message{
+    color: rgb(202, 21, 21);
 }
 
 ul li button {
